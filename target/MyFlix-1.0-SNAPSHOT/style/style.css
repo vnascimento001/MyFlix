@@ -1,0 +1,25 @@
+body{
+    background: #141414;
+    color: #fff;
+}
+
+
+button {
+    border: 0;
+    color: #FFFAFA;
+    background: #DA1E26;
+    font-weight:bold;
+    padding: 15px 20px;
+    font-size: 16px;
+    border-radius: 20px;
+    margin-top: 20px;
+    cursor: pointer;
+    transition: .3s;
+}
+
+h1 {
+    color: red;
+    text-align: center;
+    font-family: impact;
+    font-size: 62pt;
+}

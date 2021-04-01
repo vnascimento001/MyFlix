@@ -1,5 +1,4 @@
 <%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
-
 <!DOCTYPE html>
 <html>
 <head>
@@ -18,7 +17,6 @@
         <h1><%= "MyFlix" %></h1>
         <br/>
         <a href="hello-servlet">Hello Servlet</a>
-        <h1><%= System.out.println(p) %></h1>
     </div>
 </body>
 </html>
