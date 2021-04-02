@@ -1,6 +1,5 @@
 body{
-    background: #141414;
-    color: #fff;
+    background: #292829;
 }
 
 
@@ -18,8 +17,16 @@ button {
 }
 
 h1 {
-    color: red;
+    color: #e71111;
     text-align: center;
     font-family: "New Tegomin script=latin rev=6";
     font-size: 62pt;
+}
+
+.xx{
+    margin-left: auto;
+    margin-right: auto;
+    border-radius: 10%;
+    width: 182px;
+    height: 268px;
 }

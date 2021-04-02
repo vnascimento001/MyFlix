@@ -1,8 +1,37 @@
 <%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
-<%@ page import="java.sql.ResultSet" %>
-<%@ page import="java.sql.Statement" %>
-<%@ page import="java.sql.DriverManager" %>
-<%@ page import="java.sql.Connection" %>
+<%@page import="classe.filmes"%>
+
+<%
+    String exceptionMessage = null;
+
+    if(request.getParameter("Cancelar")!=null){
+        response.sendRedirect(request.getRequestURI());
+    }
+
+    if(request.getParameter("formInsert")!=null){
+        try{
+            String nome = request.getParameter("nome");
+            String genero = request.getParameter("genero");
+            String img = request.getParameter("img");
+            filmes.insert(nome, genero, img);
+            response.sendRedirect(request.getRequestURI());
+        }catch(Exception ex){
+            exceptionMessage = ex.getLocalizedMessage();
+        }
+
+    }
+
+    if(request.getParameter("FormDelete")!=null){
+        try{
+            String nome = request.getParameter("nome");
+            filmes.delete(nome);
+            response.sendRedirect(request.getRequestURI());
+        }catch(Exception ex){
+            exceptionMessage = ex.getLocalizedMessage();
+        }
+
+    }
+%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -15,13 +44,15 @@
 </head>
 <body>
     <button style="float: right;">Adicionar</button>
-    <div class="container">
 
         <br/>
-        <h1><%= "MyFlix" %></h1>
+        <h1> MyFlix</h1>
+
         <br/>
 
+            <% for(filmes filme : filmes.getList()){ %>
+            <img  class="xx" src="<%=filme.getImg()%>" alt="Filme">
 
-    </div>
+    <% } %>
 </body>
 </html>

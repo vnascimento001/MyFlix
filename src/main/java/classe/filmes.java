@@ -106,13 +106,13 @@ public class filmes {
         if(methodException!=null) throw methodException;
     }
 
-    public static void delete(int id) throws Exception{
+    public static void delete(String nome) throws Exception{
         Connection con = null; PreparedStatement stmt = null; ResultSet rs = null;
         Exception methodException = null;
         try{
             con = DBConnect.getConnection();
-            stmt = con.prepareStatement("DELETE FROM filmes WHERE id=?");
-            stmt.setInt(1, id);
+            stmt = con.prepareStatement("DELETE FROM filmes WHERE nome=?");
+            stmt.setString(1, nome);
             stmt.execute();
 
         }catch(Exception ex){

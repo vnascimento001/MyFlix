@@ -14,10 +14,11 @@ public class DBConnect implements ServletContextListener {
     private static final String USER = "root";
     private static final String PW = "";
 
+
     public static String exceptionMessage = null;
 
     public static Connection getConnection() throws Exception{
-        return DriverManager.getConnection(DB_URL, USER, PW);
+        return DriverManager.getConnection("jdbc:mysql://localhost:3306/filmes", "root", "");
     }
 
     @Override
