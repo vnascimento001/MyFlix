@@ -1,5 +1,9 @@
 package classe;
-import java.sql.*;
+
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.Statement;
 import java.util.ArrayList;
 
 public class filmes {
@@ -8,9 +12,7 @@ public class filmes {
     private String genero;
     private String img;
 
-    public filmes(){
-
-    }
+    public filmes(){}
 
     public filmes(String nome, String genero, String img) {
         this.nome = nome;
@@ -23,93 +25,6 @@ public class filmes {
         this.nome = nome;
         this.genero = genero;
         this.img = img;
-    }
-    public static ArrayList<filmes> getList() throws Exception{
-        ArrayList<filmes> list = new ArrayList<>();
-
-        Connection con = null;
-        Statement stmt = null;
-        ResultSet rs = null;
-
-        Exception methodException = null;
-
-        try{
-            con = DBConnect.getConnection();
-            stmt = con.createStatement();
-            rs = stmt.executeQuery("SELECT * FROM filmes");
-
-            while(rs.next()){
-                list.add(new filmes(
-                        rs.getInt("id"),
-                        rs.getString("nome"),
-                        rs.getString("genero"),
-                        rs.getString("img")
-                ));
-            }
-
-        }catch(Exception ex){
-            methodException = ex;
-        }finally{
-            try{rs.close();}catch(Exception ex){}
-            try{stmt.close();}catch(Exception ex){}
-            try{con.close();}catch(Exception ex){}
-        }
-
-        if(methodException != null) throw methodException;
-
-        return list;
-    }
-
-    public static void addFilme(String nome, String genero, String img) throws Exception{
-        Connection con = null;
-        PreparedStatement stmt = null;
-        ResultSet rs = null;
-
-        Exception methodException = null;
-
-        try{
-            con = DBConnect.getConnection();
-            stmt = con.prepareStatement("INSERT INTO filmes(nome, genero, img) values(?,?,?)");
-
-            stmt.setString(1, nome);
-            stmt.setString(2, genero);
-            stmt.setString(1, img);
-
-            stmt.execute();
-        }catch(Exception ex){
-            methodException = ex;
-        }finally{
-            try{rs.close();}catch(Exception ex){}
-            try{stmt.close();}catch(Exception ex){}
-            try{con.close();}catch(Exception ex){}
-        }
-
-        if(methodException != null) throw methodException;
-    }
-
-    public static void delete(int id) throws Exception{
-        Connection con = null;
-        PreparedStatement stmt = null;
-        ResultSet rs = null;
-
-        Exception methodException = null;
-
-        try{
-            con = DBConnect.getConnection();
-            stmt = con.prepareStatement("DELETE FROM filmes WHERE id=?");
-
-            stmt.setInt(1, id);
-
-            stmt.execute();
-        }catch(Exception ex){
-            methodException = ex;
-        }finally{
-            try{rs.close();}catch(Exception ex){}
-            try{stmt.close();}catch(Exception ex){}
-            try{con.close();}catch(Exception ex){}
-        }
-
-        if(methodException != null) throw methodException;
     }
 
     public int getId() {
@@ -142,6 +57,80 @@ public class filmes {
 
     public void setImg(String img) {
         this.img = img;
+    }
+
+    public static ArrayList<filmes> getList() throws Exception{
+        ArrayList<filmes> list = new ArrayList<>();
+        Connection con = null; Statement stmt = null; ResultSet rs = null;
+        Exception methodException = null;
+        try{
+            con = DBConnect.getConnection();
+            stmt = con.createStatement();
+            rs = stmt.executeQuery("SELECT * FROM filmes");
+
+            while(rs.next()){
+                list.add(new filmes(
+                        rs.getString("nome"),
+                        rs.getString("genero"),
+                        rs.getString("img")
+                ));
+            }
+        }catch(Exception ex){
+            methodException = ex;
+        }finally{
+            try{rs.close();}catch(Exception ex2){}
+            try{stmt.close();}catch(Exception ex2){}
+            try{con.close();}catch(Exception ex2){}
+        }
+        if(methodException!=null) throw methodException;
+        return list;
+    }
+
+    public static void insert(String nome, String genero, String img) throws Exception{
+        Connection con = null; PreparedStatement stmt = null; ResultSet rs = null;
+        Exception methodException = null;
+        try{
+            con = DBConnect.getConnection();
+            stmt = con.prepareStatement("INSERT INTO filmes(nome, genero, img) values(?,?,?)");
+            stmt.setString(1, nome);
+            stmt.setString(2, genero);
+            stmt.setString(3, img);
+            stmt.execute();
+        }catch(Exception ex){
+            methodException = ex;
+        }finally{
+            try{rs.close();}catch(Exception ex2){}
+            try{stmt.close();}catch(Exception ex2){}
+            try{con.close();}catch(Exception ex2){}
+        }
+        if(methodException!=null) throw methodException;
+    }
+
+    public static void delete(int id) throws Exception{
+        Connection con = null; PreparedStatement stmt = null; ResultSet rs = null;
+        Exception methodException = null;
+        try{
+            con = DBConnect.getConnection();
+            stmt = con.prepareStatement("DELETE FROM filmes WHERE id=?");
+            stmt.setInt(1, id);
+            stmt.execute();
+
+        }catch(Exception ex){
+            methodException = ex;
+        }finally{
+            try{rs.close();}catch(Exception ex2){}
+            try{stmt.close();}catch(Exception ex2){}
+            try{con.close();}catch(Exception ex2){}
+        }
+        if(methodException!=null) throw methodException;
+    }
+    public static String getCreateStatement(){
+        return "CREATE TABLE IF NOT EXISTS filmes("
+                +"id INTEGER PRIMARY KEY,"
+                +"nome VARCHAR(50) NOT NULL,"
+                +"genero VARCHAR(20) NOT NULL,"
+                +"img VARCHAR(128) NOT NULL"
+                +")";
     }
 
 }
