@@ -1,4 +1,5 @@
 <%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
+<%@page import="classe.filmes" %>
 
 <!DOCTYPE html>
 <html>
@@ -11,14 +12,53 @@
     <link rel="stylesheet" href="style/style.css">
 </head>
 <body>
+<%
+    Exception err = null;
+
+    try{
+
+        if(request.getParameter("cria") != null){
+            filmes.addFilme(
+                    request.getParameter("nome"),
+                    request.getParameter("genero"),
+                    request.getParameter("img")
+
+            );
+            response.sendRedirect(request.getRequestURI());
+        }
+
+        if(request.getParameter("excluir") != null){
+            filmes.delete(
+                    Integer.parseInt(request.getParameter("id"))
+            );
+            response.sendRedirect(request.getRequestURI());
+        }
+
+    }catch(Exception ex){
+        err = ex;
+    }
+
+%>
+
     <button style="float: right;">Adicionar</button>
     <div class="container">
 
         <br/>
         <h1><%= "MyFlix" %></h1>
         <br/>
-        <a href="hello-servlet">Hello Servlet</a>
-        <h1><%= System.out.println(p) %></h1>
+        <table border="1">
+            <tr>
+                <th>Nome</th>
+            </tr>
+            <% for(filmes filme : filmes.getList()){ %>
+            <tr>
+                <td><%=filme.getNome()%></td>
+                <td><%=filme.getId()%></td>
+                <td><%=filme.getGenero()%></td>
+                <td><%=filme.getImg()%></td>
+            </tr>
+            <% } %>
+        </table>
     </div>
 </body>
 </html>
