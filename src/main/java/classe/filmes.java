@@ -28,7 +28,7 @@ public class filmes {
     }
 
     public int getId() {
-        return id;
+        return this.id;
     }
 
     public void setId(int id) {
@@ -70,6 +70,7 @@ public class filmes {
 
             while(rs.next()){
                 list.add(new filmes(
+                        rs.getInt("id"),
                         rs.getString("nome"),
                         rs.getString("genero"),
                         rs.getString("img")
