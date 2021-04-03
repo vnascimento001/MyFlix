@@ -2,13 +2,12 @@
 <%@page import="classe.filmes"%>
 
 <%
-
     Exception err = null;
 
     try{
 
 
-        if(request.getParameter("cria") != null){
+        if(request.getParameter("insere") != null){
             filmes.insert(
                     request.getParameter("nome"),
                     request.getParameter("genero"),
@@ -18,38 +17,10 @@
             response.sendRedirect(request.getRequestURI());
         }
 
-        if(request.getParameter("excluir") != null){
-            filmes.delete(
-                    request.getParameter("exclude")
-            );
-            response.sendRedirect(request.getRequestURI());
-        }
 
     }catch(Exception ex){
         err = ex;
     }
-
-  /*  String exceptionMessage = null;
-    try{
-    if(request.getParameter("formInsert")!=null){
-
-            String nome = request.getParameter("nome");
-            String genero = request.getParameter("genero");
-            String img = request.getParameter("img");
-            filmes.insert(nome, genero, img);
-            response.sendRedirect(request.getRequestURI());
-        }
-
-        if(request.getParameter("excluir") != null){
-            filmes.delete(
-                    request.getParameter("exclude")
-            );
-            response.sendRedirect(request.getRequestURI());
-        }
-    }catch(Exception ex){
-        exceptionMessage = ex.getLocalizedMessage();
-    }
-*/
 
 %>
 <!DOCTYPE html>
@@ -60,24 +31,37 @@
     <link rel="stylesheet" href="style/style.css">
 </head>
 <body>
+    </br>
+    <input type="checkbox" id="toggle">
+    <label for="toggle" class="ipt">Adicionar</label>
 
-<h1> MyFlix</h1>
-<form>
-    <input type="text" placeholder="Nome" name="nome">
-    <input type="text" placeholder="Genero" name="genero">
-    <input type="text" placeholder="Img" name="img">
-    <input type="submit" name="cria" value="Criar">
-</form>
+    <dialog >
+        <p>
+        <span>Adicionar filme</span>
+        <form>
+            Nome:<input type="text" class="form-control" name="nome" required>
+            Gênero<input type="text" class="form-control" name="genero" required>
+            Imagem:<input type="text" class="form-control" name="img" required>
+
+        </p>
+    <label for="toggle" class="ipt">Fechar</label> <input style="border:none" class="ipt" type="submit" value="Adicionar" name="insere">
+    </form>
+    </dialog>
+
+    <h1>MyFlix</h1>
+    <h2>Filmes e séries</h2>
         <br/>
 
             <% for(filmes filme : filmes.getList()){ %>
     <div id="content">
-        <a href="#modal<%=filme.getNome()%>"><img  class="xx" src="<%=filme.getImg()%>" alt="Filme"></a><br>
-        <form method="post">
-        <input type="hidden" name="exclude" value="<%=filme.getNome()%>">
-        <input type="submit" name="excluir" value="Excluir">
-        </form><
-        <div id="modal<%=filme.getNome()%>"><a href="#"><span>X</span></a><span>Nome:</span> <%=filme.getNome()%><p><span>Gênero: </span><%=filme.getGenero()%></p>
+        <div class="column"><a href="#modal<%=filme.getNome()%>"><img  class="xx" src="<%=filme.getImg()%>" alt="Filme"></a></div>
+        <div id="modal<%=filme.getNome()%>">
+
+            <span>Nome:</span> <%=filme.getNome()%>
+            <p>
+            <span>Gênero: </span><%=filme.getGenero()%>
+            </p>
+            <a href="#"><span>Fechar</span></a>
        </div>
     </div>
 
