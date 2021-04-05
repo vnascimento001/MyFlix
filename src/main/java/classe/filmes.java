@@ -106,7 +106,8 @@ public class filmes {
         }
         if(methodException!=null) throw methodException;
     }
-    public static void delete(String nome) throws Exception{
+
+/*    public static void delete(int id) throws Exception{
         Connection con = null;
         PreparedStatement stmt = null;
         ResultSet rs = null;
@@ -115,9 +116,9 @@ public class filmes {
 
         try{
             con = DBConnect.getConnection();
-            stmt = con.prepareStatement("DELETE FROM filmes WHERE id=?");
+            stmt = con.prepareStatement("DELETE FROM filmes WHERE nome=?");
 
-            stmt.setString(1, nome);
+            stmt.setInt(1, id);
 
             stmt.execute();
         }catch(Exception ex){
@@ -131,27 +132,8 @@ public class filmes {
         if(methodException != null) throw methodException;
     }
 
+ */
 
-  /*public static void delete(String nome) throws Exception{
-        Connection con = null; PreparedStatement stmt = null; ResultSet rs = null;
-        Exception methodException = null;
-        try{
-            con = DBConnect.getConnection();
-            stmt = con.prepareStatement("DELETE FROM filmes WHERE nome=?");
-            stmt.setString(1, nome);
-            stmt.execute();
-
-        }catch(Exception ex){
-            methodException = ex;
-        }finally{
-            try{rs.close();}catch(Exception ex2){}
-            try{stmt.close();}catch(Exception ex2){}
-            try{con.close();}catch(Exception ex2){}
-        }
-        if(methodException!=null) throw methodException;
-    }
-
-    */
     public static String getCreateStatement(){
         return "CREATE TABLE IF NOT EXISTS filmes("
                 +"id INTEGER PRIMARY KEY,"

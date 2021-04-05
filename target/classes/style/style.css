@@ -48,6 +48,7 @@ dialog{
     transform: translate(-50%,-50%);
     width: 500px;
     opacity: 90%;
+    padding: 15px;
 
 
 }
@@ -140,4 +141,12 @@ h2{
     border-radius: 10%;
     width: 182px;
     height: 268px;
+}
+
+.bg{
+    background-color: #1e69da;
+    color: #FFFAFA;
+    border-radius: 5px;
+    padding: .2em 1em;
+;
 }

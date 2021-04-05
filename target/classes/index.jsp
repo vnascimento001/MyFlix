@@ -6,19 +6,19 @@
 
     try{
 
-
-        if(request.getParameter("insere") != null){
-            filmes.insert(
+        if(request.getParameter("insere") != null)
+        {
+            filmes.insert
+                    (
                     request.getParameter("nome"),
                     request.getParameter("genero"),
                     request.getParameter("img")
-
-            );
+                    );
             response.sendRedirect(request.getRequestURI());
         }
 
-
-    }catch(Exception ex){
+    }catch(Exception ex)
+    {
         err = ex;
     }
 
@@ -35,17 +35,19 @@
     <input type="checkbox" id="toggle">
     <label for="toggle" class="ipt">Adicionar</label>
 
-    <dialog >
-        <p>
-        <span>Adicionar filme</span>
+    <dialog>
+        </p>
+            <span>Adicionar filme</span>
         <form>
             Nome:<input type="text" class="form-control" name="nome" required>
             Gênero<input type="text" class="form-control" name="genero" required>
             Imagem:<input type="text" class="form-control" name="img" required>
 
         </p>
-    <label for="toggle" class="ipt">Fechar</label> <input style="border:none" class="ipt" type="submit" value="Adicionar" name="insere">
-    </form>
+            <a href="index.jsp"><label for="toggle" class="ipt">Fechar</label></a>  <input style="border:none" class="ipt" type="submit" value="Adicionar" name="insere">
+        </form>
+        </br>
+
     </dialog>
 
     <h1>MyFlix</h1>
@@ -56,15 +58,18 @@
     <div id="content">
         <div class="column"><a href="#modal<%=filme.getNome()%>"><img  class="xx" src="<%=filme.getImg()%>" alt="Filme"></a></div>
         <div id="modal<%=filme.getNome()%>">
+                <span>Nome:</span> <%=filme.getNome()%>
+                <p>
+                <span>Gênero: </span><%=filme.getGenero()%>
+             </p>
 
-            <span>Nome:</span> <%=filme.getNome()%>
-            <p>
-            <span>Gênero: </span><%=filme.getGenero()%>
-            </p>
-            <a href="#"><span>Fechar</span></a>
+            <div>
+                <a href="index.jsp"><span class="bg">Fechar</span></a>
+            </div>
        </div>
     </div>
 
     <% } %>
+
 </body>
 </html>
